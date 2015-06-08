@@ -95,6 +95,13 @@ app.get("/tracker", function( req, res ){
 	if ( type ){
 		jsonPayload.type = type;
 	}
+	
+	//Capture the IP address
+	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	if ( ip ){
+		jsonPayload.ip = ip;
+	}
+	
 	console.log(JSON.stringify(jsonPayload));
 	
 	//Insert payload in db

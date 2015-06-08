@@ -1,0 +1,10 @@
+---
+applications:
+- name: metrics-collector
+  memory: 256M
+  instances: 1
+  host: metrics-collector
+  domain: mybluemix.net
+  disk_quota: 1024M
+  command: node server.js
+  path: .
