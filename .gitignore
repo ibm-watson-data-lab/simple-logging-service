@@ -1,6 +1,2 @@
 
-node_modules/.bin/_mocha
-
-node_modules/.bin/mocha
-
-node_modules/body-parser/HISTORY.md
+node_modules
