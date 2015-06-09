@@ -7,8 +7,6 @@ var _paq = _paq || [];
 
 //Asynchronous loading of the piwik tracking framework
 (function(){
-	var trackerProtocal = "http";
-	var trackerHost = "metrics-collector.mybluemix.net";
 	var geo = null;
 	var geoError = null;
 	if (navigator.geolocation) {
@@ -31,15 +29,22 @@ var _paq = _paq || [];
 	//Get the site id from custom script data attribute
 	var scripts = document.getElementsByTagName("script");
     var siteid = null;
+	var defTrackerProtocol = "http";
+	var defTrackerHost = "metrics-collector.mybluemix.net";
+	var trackerUrl = null;
     if ( scripts && scripts.length > 0 ){
     	siteid = scripts[scripts.length - 1].getAttribute("siteid");
+    	trackerUrl = scripts[scripts.length - 1].getAttribute("trackerurl");
+    }
+    if ( !trackerUrl ){
+    	trackerUrl = defTrackerProtocol + "://" + defTrackerHost + "/tracker";
     }
     if ( !siteid ){
     	console.log('siteid attribute missing in the script tag for tracker.js');
     }
 	_paq.push(['setSiteId', siteid]);
 	_paq.push(['addPlugin', 'cds_custom_data', {'link': customDataFn, 'sitesearch':customDataFn, 'log': customDataFn}]);
-	_paq.push(['setTrackerUrl', trackerProtocal + "://" + trackerHost + "/tracker"]);
+	_paq.push(['setTrackerUrl', trackerUrl]);
 	_paq.push(['trackPageView']);
 	_paq.push(['enableLinkTracking']);
 	var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript'; 
