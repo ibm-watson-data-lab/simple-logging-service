@@ -34,8 +34,10 @@ For example:
   _paq.push([ enableLinkTrackingForNode, $('#results')]);
 ``` 
 
+Note: You can find additional documentation on events supported by piwik at http://developer.piwik.org/guides/tracking-javascript-guide
+
 ## Data Model of the tracking payload
-``` json
+``` javascript
 {
   "type": "search",     //Type of event being captured (currently pageView, search and link)
   "idsite": "cds.search.engine", //app id (must be unique)
