@@ -26,18 +26,31 @@ var _paq = _paq || [];
 		return ret;
 	}
 	
+	var extracturl = function( url ){
+		var a =  document.createElement('a');
+	    a.href = url;
+	    return a.protocol + "//" + a.hostname + ":" + a.port;
+	}
+	
 	//Get the site id from custom script data attribute
 	var scripts = document.getElementsByTagName("script");
     var siteid = null;
 	var defTrackerProtocol = "http";
 	var defTrackerHost = "metrics-collector.mybluemix.net";
 	var trackerUrl = null;
+	var src = null;
     if ( scripts && scripts.length > 0 ){
     	siteid = scripts[scripts.length - 1].getAttribute("siteid");
     	trackerUrl = scripts[scripts.length - 1].getAttribute("trackerurl");
+    	src = scripts[scripts.length-1].src;
     }
     if ( !trackerUrl ){
-    	trackerUrl = defTrackerProtocol + "://" + defTrackerHost + "/tracker";
+    	//Compute it from the current location
+    	if ( src ){
+    		trackerUrl = extracturl( src ) + "/tracker";
+    	}else{
+    		trackerUrl = defTrackerProtocol + "://" + defTrackerHost + "/tracker";
+    	}
     }
     if ( !siteid ){
     	console.log('siteid attribute missing in the script tag for tracker.js');

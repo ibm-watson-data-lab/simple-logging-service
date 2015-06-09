@@ -17,7 +17,7 @@ var _ = require('lodash');
 var cloudant = require('./lib/storage');
 var misc = require('./lib/misc');
 
-var dbName = "tracker_db";
+var dbName =  process.env.CLOUDANT_DB_NAME || "tracker_db";
 var type_pageView = "pageView";
 var type_search = "search";
 var type_link = "link";
@@ -63,6 +63,7 @@ trackerDb.on("cloudant_error", function(){
 
 //Create and configure the express app
 var app = express();
+app.use(express.static(path.join(__dirname, 'js')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(errorHandler({ dumpExceptions:true, showStack:true }));
