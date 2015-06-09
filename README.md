@@ -1,8 +1,8 @@
 
 
-# cds-labs-tracker-collector
-
-
+# metrics-collector
+* Implements a collector for tracking web site usage data. The data is stored into a cloudant database.
+* Includes a piwik based implementation fo the tracking client code.
 
 ## Usage
 
