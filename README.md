@@ -31,7 +31,10 @@ If your application is dynamically updating part of DOM (based on search results
 For example:
 ``` javascript
   //Use enableLinkTrackingForNode method to install the tracking handler on all the links under a specified DOM Node
-  _paq.push([ enableLinkTrackingForNode, $('#results')]);
+  //Tip: always check for null in case the tracker js cannot be loaded
+  if ( typeof _paq !== 'undefined'){
+      _paq.push([ enableLinkTrackingForNode, $('#results')]);
+  }
 ``` 
 
 Note: You can find additional documentation on events supported by piwik at http://developer.piwik.org/guides/tracking-javascript-guide
