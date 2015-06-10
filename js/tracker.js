@@ -61,7 +61,8 @@ var _paq = _paq || [];
 	_paq.push(['trackPageView']);
 	_paq.push(['enableLinkTracking']);
 	var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript'; 
-	g.defer=true; g.async=true; g.src='js/piwik.js';
+	var index = src.lastIndexOf("/");
+	g.defer=true; g.async=true; g.src= src.substr(0, index ) +'/piwik.js';
 	s.parentNode.insertBefore(g,s); 
 })();
 
