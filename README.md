@@ -2,14 +2,15 @@
 
 # metrics-collector
 * Implements a collector for tracking web site usage data. The data is stored into a cloudant database.
-* Includes a piwik based implementation fo the tracking client code.
+* Includes a piwik based implementation for the tracking client code.
+* Tracks not only page views but also events in a single-page or async application
 
 ## Usage
 **Configuring the Application:**
 
 1. Request a tracking id for your application (at the moment, you can generate your own unique id).
 2. Include the tracker.js as a script tag in every page you want to track. Include the site application id from #1
-   
+
 ``` javascript
      <script src="http://metrics-collectors.mybluemix.net/tracker.js" siteid="my.unique.id"/>
 ```
@@ -35,7 +36,7 @@ For example:
   if ( typeof _paq !== 'undefined'){
       _paq.push([ enableLinkTrackingForNode, $('#results')]);
   }
-``` 
+```
 
 Note: You can find additional documentation on events supported by piwik at http://developer.piwik.org/guides/tracking-javascript-guide
 
