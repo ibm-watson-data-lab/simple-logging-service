@@ -1,9 +1,9 @@
 
 
 # metrics-collector
-* Implements a collector for tracking web site usage data. The data is stored into a cloudant database.
+* Implements a collector for tracking web site usage data. The data is stored into an IBM Cloudant database.
 * Includes a piwik based implementation for the tracking client code.
-* Tracks not only page views but also events in a single-page or async application
+* Tracks not only page views but also events in a single-page or async application.
 
 ## Usage
 **Configuring the Application:**
