@@ -67,6 +67,7 @@ Note: You can find additional documentation on events supported by piwik at http
   "link": "https://developer.ibm.com/bluemix/2015/04/29/connecting-pouchdb-cloudant-ibm-bluemix/", //target url (specific to link events)
   "rec": 1,             //always 1
   "r": 297222,          //random string
+  "date": "2015-5-4",    //event date time -yyyy-mm-dd
   "h": 16,              //event timestamp - hour
   "m": 20,              //event timestamp - minute
   "s": 10,              //event timestamp - seconds
@@ -78,6 +79,8 @@ Note: You can find additional documentation on events supported by piwik at http
   "$_viewts": 1433881201,  //Last Visit timestamp
   "$_ref": '',          //Referral url
   "send_image": 0,      //used image to send payload
+  "uap": "MacIntel",     //client platform
+  "uab": "Netscape",     //client browser
   "pdf": 1,             //browser feature: supports pdf
   "qt": 0,              //browser feature: supports quickTime
   "realp": 0,           //browser feature: supports real player
