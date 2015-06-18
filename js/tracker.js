@@ -9,7 +9,8 @@ var _paq = _paq || [];
 (function(){
 	var geo = null;
 	var geoError = null;
-	if (navigator.geolocation) {
+	var geoLocation = false;
+	if ( geoLocation && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition( function( position ){
         	geo = position.coords;
         }, function( positionError ){
@@ -23,6 +24,17 @@ var _paq = _paq || [];
 		}else if ( geoError ){
 			ret += "&message=" + (geoError.message || "Unable to retrieve client geo location");
 		}
+		
+		if ( navigator.platform ){
+			ret += "&uap=" + navigator.platform;
+		}
+		if ( navigator.appName){
+			ret += "&uab=" + navigator.appName;
+		}
+		
+		//date
+		var d = new Date();
+		ret += "&date=" + d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDay();
 		return ret;
 	}
 	
