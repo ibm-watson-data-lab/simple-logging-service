@@ -34,7 +34,7 @@ var _paq = _paq || [];
 		
 		//date
 		var d = new Date();
-		ret += "&date=" + d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDay();
+		ret += "&date=" + d.getUTCFullYear() + "-" + (d.getUTCMonth() + 1) + "-" + d.getUTCDate();
 		return ret;
 	}
 	
