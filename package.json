@@ -4,9 +4,8 @@
   "description": "Backend collector of client tracking data",
   "main": "server.js",
   "scripts": {
-    "test": "WATSON_TOOLING_DB_NAME=testdb LOCAL_COUCH_DB_URL=http://dtaieb:password@127.0.0.1:5984 ./node_modules/.bin/mocha ./tests"
   },
-  "repository": "",
+  "repository": "https://github.com/ibm-cds-labs/metrics-collector",
   "keywords": [
     "tracking"
   ],
