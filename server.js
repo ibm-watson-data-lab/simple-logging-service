@@ -98,7 +98,7 @@ app.get("/tracker", function( req, res ){
 	}
 	
 	//Capture the IP address
-	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	var ip = req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	if ( ip ){
 		jsonPayload.ip = ip;
 	}
@@ -126,7 +126,7 @@ app.get("*", function(request, response){
 });
 
 //If Cloud Foundry
-var port = process.env.VCAP_APP_PORT || 8080;
+var port = process.env.VCAP_APP_PORT || 8081;
 var connected = function() {
 	console.log("CDS Labs Tracker Collector started on port %s : %s", port, Date(Date.now()));
 };
