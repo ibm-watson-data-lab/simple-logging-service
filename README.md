@@ -11,16 +11,16 @@
 1. Request a tracking id for your application (at the moment, you can generate your own unique id).
 2. Include the tracker.js as a script tag in every page you want to track. Include the site application id from #1
 
-``` javascript
+```html
      <script src="http://metrics-collectors.mybluemix.net/tracker.js" siteid="my.unique.id"/>
 ```
 
-That's it! Tracking events will be generated and sent to the collector. You can peek at the data by looking at the cloudant dashbaord for the database used by the collector.
+That's it! Tracking events will be generated and sent to the collector. You can peek at the data by using the Cloudant dashboard to browse the collector database.
 
 **Configuring the collector**
 
-You can specify the cloudant url as a System variable e.g:
-CLOUDANT_URL=https://userid:password@dtaieb.cloudant.com
+You can specify the Cloudant URL as a System variable e.g:
+CLOUDANT_URL=https://userid:password@userid.cloudant.com
 
 If you are deploying the app to Bluemix, then you have more database configuration options:
 
@@ -30,24 +30,25 @@ If you are deploying the app to Bluemix, then you have more database configurati
 ## Developing
 If your application is dynamically updating part of DOM (based on search results for example), you will need to make extra calls to make sure the tracking click handlers are correctly updated.
 For example:
-``` javascript
+
+```javascript
   //Use enableLinkTrackingForNode method to install the tracking handler on all the links under a specified DOM Node
-  //Tip: always check for null in case the tracker js cannot be loaded
+  //Tip: always check for null in case tracker.js cannot be loaded
   if ( typeof _paq !== 'undefined'){
       _paq.push([ enableLinkTrackingForNode, $('#results')]);
   }
 ```
 
-Note: You can find additional documentation on events supported by piwik at http://developer.piwik.org/guides/tracking-javascript-guide
+> Note: You can find additional documentation on events supported by piwik at [http://developer.piwik.org/guides/tracking-javascript-guide](http://developer.piwik.org/guides/tracking-javascript-guide)
 
 ## Data Model of the tracking payload
-``` javascript
+```json
 {
-  "type": "search",     //Type of event being captured (currently pageView, search and link)
+  "type": "search",              //Type of event being captured (currently pageView, search and link)
   "idsite": "cds.search.engine", //app id (must be unique)
-  "ip": "75.126.70.43",    //ip of the client
+  "ip": "75.126.70.43",          //ip of the client
   "url": "http://cloudant-labs.github.io/resources.html",   //source url for the event
-  "geo": {     //geo coordinates of the client (if user allowed)
+  "geo": {                       //geo coordinates of the client (if available)
     "lat": 42.3596328,
     "long": -71.0535177
   }

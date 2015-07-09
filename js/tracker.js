@@ -78,7 +78,7 @@ var _paq = _paq || [];
 	s.parentNode.insertBefore(g,s); 
 })();
 
-//dynamicall enable link tracking starting from provided DOM Element
+//dynamically enable link tracking starting from provided DOM Element
 var enableLinkTrackingForNode = function( node ){
   var _tracker = this;
   node.find('a,area').each(function(link){
