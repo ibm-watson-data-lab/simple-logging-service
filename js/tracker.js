@@ -28,8 +28,8 @@ var _paq = _paq || [];
 		if ( navigator.platform ){
 			ret += "&uap=" + navigator.platform;
 		}
-		if ( navigator.appName){
-			ret += "&uab=" + navigator.appName;
+		if ( navigator.userAgent){
+			ret += "&uag=" + navigator.userAgent;
 		}
 		
 		//date
