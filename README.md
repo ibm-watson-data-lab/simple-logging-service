@@ -111,3 +111,11 @@ Complete these steps first if you have not already:
 Create a Cloudant service within Bluemix if one has not already been created:
 
     $ cf create-service cloudantNoSQLDB Shared metrics-collector-cloudant-service
+
+### Deploy
+
+To deploy to Bluemix, simply:
+
+    $ cf push
+
+**Note:** You may notice that Bluemix assigns a URL to your application containing a random word. This is defined in the `manifest.yml` file where the `random-route` key set to the value of `true`. This ensures that multiple people deploying this application to Bluemix do not run into naming collisions. To specify your own route, remove the `random-route` line from the `manifest.yml` file and add a `host` key with the unique value you would like to use for the host name.
