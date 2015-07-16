@@ -8,3 +8,5 @@ applications:
   disk_quota: 1024M
   command: node server.js
   path: .
+  services:
+  - metrics-collector-cloudant-service
