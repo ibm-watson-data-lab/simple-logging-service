@@ -6,7 +6,7 @@ For those of you who follow the Cloudant blog, you recently read about [how to t
 
 There are two basic ways to analyze a user’s behavior. Look at the web logs on the server side, or use other techniques to capture user behavior on the client. We can’t use the server-side strategy because we are treating the search engine as a micro-service that we don’t control, and more importantly, there may be user actions happening on the client-side that don't get captured in the HTTP requests that make it back to the server. So that leaves us with client-side techniques. There are a number of services that offer client-side behavior tracking, but for all their positives, some common drawbacks are that you don’t have full control over what you track, and usually the data is stored somewhere else. Your ability to control how your data is stored and what you can do with it is limited. 
 
-You can find all the code for this part of the tutorial in the [metrics-collector GitHub repo](https://github.com/ibm-cds-labs/metrics-collector). 
+You can find all the code for this part of the tutorial in the [metrics-collector GitHub repo](https://github.com/ibm-cds-labs/metrics-collector). You can clone or fork the GitHub repo and follow along in your favorite editor. But the easiest way to use the app is to click on the "Deploy to Bluemix" button shown in the repo's README. This will create a copy of the code repository in IBM DevOps Services, deploy the application to Bluemix by creating a NodeJS runtime, instantiate a Cloudant database service, and wire them up to work together. Then all you have to do to get up and running is follow the tutorial's guidance on pointing the web page in which you want to track events to your tracking services (i.e. reference tracker.js and piwik.js in your HTML).
 
 ## Overview
 
@@ -177,5 +177,7 @@ We've now built a data warehouse of user events for our web page, which happens 
   <script src="//metrics-collector.mybluemix.net/tracker.js" siteid="cds.search.engine"></script>
 ```
 
-The "application" is identified by the siteid, so if you use the same siteid on different web pages, their metrics will be grouped and analyzed together (you will still be able to identify the different web pages via the `trackPageView` Piwik event that's being tracked, and shows up in the database as the `url` key). 
+The "application" is identified by the siteid, so if you use the same siteid on different web pages, their metrics will be grouped and analyzed together (you will still be able to identify the different web pages via the `trackPageView` Piwik event that's being tracked, and shows up in the database as the `url` key).
+
+This concludes the data development part of our metrics collection exercise. Now you are ready to move on to Part 2 of the tutorial, [Metrics Analytics](https://github.com/ibm-cds-labs/metrics-analytics/blob/master/tutorial/tutorial.md).
 
