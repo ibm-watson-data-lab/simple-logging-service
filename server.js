@@ -122,7 +122,7 @@ app.get("/tracker", function( req, res ){
 app.get("*", function(request, response){
     console.log("GET request url %s : headers: %j", request.url, request.headers);
     
-    response.status(500).json({ error: 'Invalid request' });
+    response.status(500).send('<h1>Invalid Request</h1><p>Simple Metrics Collector captures web metrics data and stores it in <a href="https://cloudant.com">Cloudant</a>. There are no web pages here. This is middleware.</p><p>For more information check out <a href="https://github.com/ibm-cds-labs/metrics-collector/">the GitHub repo</a></p>');
 });
 
 //If Cloud Foundry

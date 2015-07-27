@@ -1,4 +1,4 @@
-# Super Simple Metrics Tutorial
+# Simple Metrics Tutorial
 # Part 1: Metrics Collection
 
 ## Motivation
