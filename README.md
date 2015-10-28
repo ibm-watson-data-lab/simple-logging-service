@@ -63,7 +63,7 @@ _Once that line is removed, you may also uninstall the `cf-deployment-tracker-cl
 
 Once you deploy, [follow the tutorial](https://developer.ibm.com/clouddataservices/simple-metrics-tutorial-part-1-metrics-collection/) to understand exactly how this app works and to learn how to collect user behavior data for your own web app or page. 
 
-Then stay tuned for Part 2 of this tutorial, where you’ll learn how to display collected data graphically in a report.
+When you're done, move on to [Part 2](https://developer.ibm.com/clouddataservices/simple-metrics-tutorial-part-2-d3-and-json/) of this tutorial, where you’ll learn how to display collected data graphically in a report.
 
 
 _<sup>© "Apache", "CouchDB", "Apache CouchDB" and the CouchDB logo are trademarks or registered trademarks of The Apache Software Foundation. All other brands and trademarks are the property of their respective owners.</sup>_
