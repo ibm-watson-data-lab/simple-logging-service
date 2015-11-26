@@ -1,16 +1,10 @@
 ---
-declared-services:
-  metrics-collector-cloudant-service:
-    label: cloudantNoSQLDB
-    plan: Shared
 applications:
-- name: metrics-collector
+- name: metrics-collector-microservice
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  random-route: true
+  random-route: false
   disk_quota: 1024M
   command: node server.js
   path: .
-  services:
-  - metrics-collector-cloudant-service
