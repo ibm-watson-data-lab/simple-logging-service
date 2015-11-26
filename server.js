@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Cloud Data Services Tracker Collector main module
+ * Cloud Data Services - Metrics Collector Microservice main module
  * 
  *   Collect client tracking data
  * 
@@ -35,7 +35,6 @@ if (queue_types.indexOf(process.env.QUEUE_TYPE) > -1) {
 }
 console.log("Queue mode:", queue_type);
 var q = require('./lib/' + queue_type);
-
 
 //Configure tracker end point
 app.get("/tracker", function( req, res ) {
@@ -76,23 +75,12 @@ app.get("/tracker", function( req, res ) {
     	res.status(200).end();
   });
 	res.status(200).end();
-	//Insert payload in db
-/*	trackerDb.run( function( err, db ){
-		if ( err ){
-			return misc.jsonError( res, err );
-		}
-		db.insert( jsonPayload, function( err, data ){
-			if ( err ){
-				return console.log( "Error storing client tracking data: " + misc.jsonError( res, err ) );
-			}
-			return res.status(200).end();
-		});
-	});*/
+
 });
 
 app.get("*", function(request, response) {
     console.log("GET request url %s : headers: %j", request.url, request.headers);
-    response.status(500).send('<h1>Invalid Request</h1><p>Simple Metrics Collector captures web metrics data and stores it in <a href="https://cloudant.com">Cloudant</a>. There are no web pages here. This is middleware.</p><p>For more information check out <a href="https://github.com/ibm-cds-labs/metrics-collector/">the GitHub repo</a></p>');
+    response.status(500).send('<h1>Invalid Request</h1><p>Metrics Collector Microservice captures web metrics data and writes it to a choice of queues. There are no web pages here. This is middleware.</p>');
 });
 
 //If Cloud Foundry
