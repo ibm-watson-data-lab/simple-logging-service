@@ -10,6 +10,8 @@ This project is based on the [Simple Metrics Collector](https://github.com/ibm-c
 5. rabbit_pubsub - to a RabbitMQ pubsub channel
 6. kafka - to an Apache Kafka or IBM Message Hub topic
 
+![schematic](https://github.com/glynnbird/metrics-collector-microservice/raw/master/img/mcms.png "Schematic Diagram")
+
 ## Deploy to IBM Bluemix
 
 ### One-Click Deployment
