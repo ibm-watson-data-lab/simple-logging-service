@@ -1,27 +1,28 @@
 {
-  "name": "cds-labs-tracker-collector",
+  "name": "cds-labs-metrics-collector-microservice",
   "version": "0.1.0",
-  "description": "Backend collector of client tracking data",
+  "description": "Backend collector of client tracking data - this microservice simply adds data to a queue",
   "main": "server.js",
   "scripts": {},
-  "repository": "https://github.com/ibm-cds-labs/metrics-collector",
+  "repository": "https://github.com/glynnbird/metrics-collector-microservice",
   "keywords": [
-    "tracking"
+    "tracking",
+    "microservice"
   ],
   "dependencies": {
     "body-parser": "^1.11.0",
     "cf-deployment-tracker-client": "0.0.7",
     "cfenv": "*",
-    "cloudant": "^1.0.0",
     "errorhandler": "~1.3.6",
     "express": "^4.10.6",
     "lodash": "~3.9.3",
+    "node-redis": "^0.1.7",
     "when": "~3.7.3"
   },
   "devDependencies": {
     "mocha": "*"
   },
-  "author": "david_taieb@us.ibm.com",
+  "author": "glynn.bird@uk.ibm.com",
   "license": "IBM",
   "readmeFilename": "README.md"
 }

@@ -1,38 +1,30 @@
 
+# Metrics Collector Microservice
 
-# Simple Metrics Tutorial Part 1: Metrics Collection
-The IBM Cloud Data Services Developer Advocacy team built this lightweight web-tracking app to record user actions on our site’s AJAX-enabled search engine page. [Follow the tutorial](http://developer.piwik.org/guides/tracking-javascript-guide)
-and learn how we use the open source Piwik® web analytics app to collect information and Node.js® to store that data in Cloudant. Then try it yourself by implementing tracking on a demo app we provide. Here in Part 1, we focus on data collection. When you’re done, you can try Part 2, where we show how to visualize the data you’ve gathered.
+This project is based on the [Simple Metrics Collector](https://github.com/ibm-cds-labs/metrics-collector) which is a simple way of collecting web analytics and storing the data in a Cloudant database. This project breaks this concept down using a Microservices architecture, so instead of being limited to a writing data to a Cloudant database, this project will add data to a variety out outputs, depending on a runtime environment variable:
 
-
-##How it works
-
-Here’s an architectural overview of our metrics collector. Its middleware component lives on [IBM Bluemix](https://www.bluemix.net/) (IBM’s open cloud platform for building, running, and managing applications) and serves `tracker.js` and `piwik.js`, which perform the metrics collection work and persist metrics data to the database. We use Cloudant as our database, a NoSQL JSON document store based on Apache CouchDB™. 
-
-<img src="http://developer.ibm.com/clouddataservices/wp-content/uploads/sites/47/2015/07/collector-arch-1024x327.png">
+1. stdout - to the terminal only
+2. redis_queue - to a Redis queue
+3. redis_pubsub - to a Redis pubsub channel
+4. rabbit_queue - to a RabbitMQ queue
+5. rabbit_pubsub - to a RabbitMQ pubsub channel
+6. kafka - to an Apache Kafka or IBM Message Hub topic
 
 ## Deploy to IBM Bluemix
 
-###One-Click Deployment
+### One-Click Deployment
 
 The fastest way to deploy this application to Bluemix is to click this **Deploy to Bluemix** button. Or, if you prefer working from the command line, skip to the **Deploy Manually** section.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button_x2.png)](https://bluemix.net/deploy?repository=https://github.com/ibm-cds-labs/metrics-collector)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button_x2.png)](https://bluemix.net/deploy?repository=https://github.com/glynnbird/metrics-collector-microservice)
 
 **Don't have a Bluemix account?** If you haven't already, you'll be prompted to sign up for a Bluemix account when you click the button.  Sign up, verify your email address, then return here and click the the **Deploy to Bluemix** button again. Your new credentials let you deploy to the platform and also to code online with Bluemix and Git. If you have questions about working in Bluemix, find answers in the [Bluemix Docs](https://www.ng.bluemix.net/docs/).
 
-###Deploy Manually
+### Deploy Manually to Bluemix
 
 #### Configure Cloud Foundry
 
 If you haven't already, [install the Cloud Foundry command line interface and connect to Bluemix](https://www.ng.bluemix.net/docs/#starters/install_cli.html).
-
-
-#### Create Backing Services
-
-Create a Cloudant service within Bluemix if one has not already been created:
-
-    $ cf create-service cloudantNoSQLDB Shared metrics-collector-cloudant-service
 
 #### Deploy
 
@@ -59,12 +51,134 @@ require("cf-deployment-tracker-client").track();
 
 _Once that line is removed, you may also uninstall the `cf-deployment-tracker-client` npm package._
 
-## Try the Tutorial
 
-Once you deploy, [follow the tutorial](https://developer.ibm.com/clouddataservices/simple-metrics-tutorial-part-1-metrics-collection/) to understand exactly how this app works and to learn how to collect user behavior data for your own web app or page. 
+## Environment variables
 
-When you're done, move on to [Part 2](https://developer.ibm.com/clouddataservices/simple-metrics-tutorial-part-2-d3-and-json/) of this tutorial, where you’ll learn how to display collected data graphically in a report.
+The installation can be configured by adding a number of custom environment variables and then restarting the application
 
+### QUEUE_TYPE
+
+The value of QUEUE_TYPE can be one of stdout, redis_queue, redis_pubsub, rabbit_queue, rabbit_pubsub or kafka. If a value is not set, then 'stdout' is assumed.
+
+### QUEUE_NAME
+
+The value of QUEUE_NAME determines which queue/topic the data is written to. If omitted, it takes the following values for each of the queue types:
+
+1. stdout - n/a
+2. redis_queue - mcqueue
+3. redis_pubsub - mcpubsub
+4. rabbit_queue - mcqueue
+5. rabbit_pubsub - mcpubsub
+6. kafka - mcqueue
+
+### VCAP_SERVICES
+
+`VCAP_SERVICES` is created for you by the Bluemix Cloud Foundry service. It defines the credentials of the attached services that this app can connect to. 
+
+...
+
+## Client-side code
+
+Once the application is installed and configured, then your web-page needs to have code inserted into it to allow data to be collected e.g.
+
+```html
+<html>
+<body>
+<div>
+  <a href="https://www.google.com" title="this will be tracked">Tracked Link</a>
+</div>
+<div>
+  <a href="#" onclick="javascript:_paq.push(['trackEvent', 'Menu', 'Freedom']);" title="this will be tracked">Async Tracked Link</a>
+</div>
+<script type="text/javascript">
+   var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="http://mydomain.mybluemix.net/";
+    _paq.push(['setTrackerUrl', u+'tracker']);
+    _paq.push(['setSiteId', "mysite"]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+</body>
+</html>
+```
+
+The main script tag loads the `piwik.js` JavaScript from the server and records a page tracking event. It also ensures that any link clicks being tracked too (enableLinkTracking). The example above also shows how asynchronous actions can be recorded too by calling `_paq.push` when the event occurs.
+
+The only things you need to alter from this code snippet is the URL assigned to variable `u` which should be the URL of your installation and the value passed to setSiteId.
+ 
+## Running with QUEUE_TYPE=stdout
+
+To stream the events to `stdout` is the default behaviour of the Metrics Collector Microservice. Simply run the app and events will appear on the terminal.
+
+## Running with QUEUE_TYPE=redis_queue
+
+Define your environment variable and run the process
+
+```sh
+> export QUEUE_TYPE=redis_queue
+> node server.js
+Queue mode: redis_queue
+Connecting to Redis server on localhost:6379
+CDS Labs Metrics Collector Microservice started on port 8081 : Thu Nov 26 2015 16:32:15 GMT+0000 (GMT)
+```
+
+After generating some data, in your web application, the Redis command-line interface can be used to check the collected data. The `LLEN` command can tell you how many items have accumlated on the queue:
+
+```sh
+> redis-cli
+127.0.0.1:6379> LLEN mcqueue
+(integer) 26
+```
+
+while the `RPOP` command will retrieve the oldest item on the queue:
+
+```sh
+> redis-cli
+127.0.0.1:6379> RPOP mcqueue
+"{\"action_name\":\"\",\"idsite\":\"mysite\",\"rec\":1,\"r\":176450,\"h\":16,\"m\":28,\"s\":14,\"url\":\"http://localhost:8000/metrics.html#\",\"$_id\":\"772aa0d070215d3b\",\"$_idts\":1448553217,\"$_idvc\":1,\"$_idn\":0,\"$_refts\":0,\"$_viewts\":1448553217,\"cs\":\"windows-1252\",\"send_image\":0,\"pdf\":1,\"qt\":0,\"realp\":0,\"wma\":0,\"dir\":0,\"fla\":1,\"java\":1,\"gears\":0,\"ag\":0,\"cookie\":1,\"res\":\"1440x900\",\"gt_ms\":7,\"type\":\"pageView\",\"ip\":\"::1\"}"
+```
+
+N.B if you have supplied a `QUEUE_NAME` environment variable, then use that value rather than 'mcqueue' in the above examples
+
+## Running with QUEUE_TYPE=redis_pubsub
+
+Define your environment variable and run the process
+
+```sh
+> export QUEUE_TYPE=redis_pubsub
+> node server.js
+Queue mode: redis_pubsub
+Connecting to Redis server on localhost:6379
+CDS Labs Metrics Collector Microservice started on port 8081 : Thu Nov 26 2015 16:32:15 GMT+0000 (GMT)
+```
+
+Using the Redis command-line interface, we can subscribe to the pubsub channel (mcpubsub or the value of `QUEUE_NAME` you supplied):
+
+```
+> redis-cli
+127.0.0.1:6379> SUBSCRIBE mcpubsub
+Reading messages... (press Ctrl-C to quit)
+1) "subscribe"
+2) "mcpubsub"
+3) (integer) 1
+```
+
+As you generate data in the application, you will see it appear in your `redis-cli` terminal:
+
+```
+1) "message"
+2) "mcpubsub"
+3) "{\"action_name\":\"\",\"idsite\":\"mysite\",\"rec\":1,\"r\":578292,\"h\":16,\"m\":35,\"s\":44,\"url\":\"http://localhost:8000/metrics.html#\",\"$_id\":\"772aa0d070215d3b\",\"$_idts\":1448553217,\"$_idvc\":1,\"$_idn\":0,\"$_refts\":0,\"$_viewts\":1448553217,\"cs\":\"windows-1252\",\"send_image\":0,\"pdf\":1,\"qt\":0,\"realp\":0,\"wma\":0,\"dir\":0,\"fla\":1,\"java\":1,\"gears\":0,\"ag\":0,\"cookie\":1,\"res\":\"1440x900\",\"gt_ms\":13,\"type\":\"pageView\",\"ip\":\"::1\"}"
+```
+
+
+
+
+-----
 
 _<sup>© "Apache", "CouchDB", "Apache CouchDB" and the CouchDB logo are trademarks or registered trademarks of The Apache Software Foundation. All other brands and trademarks are the property of their respective owners.</sup>_
 
