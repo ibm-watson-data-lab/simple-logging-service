@@ -28,7 +28,7 @@ var type_search = "search";
 var type_link = "link";
 
 // establish which mode the metrics collector is use
-var queue_types = ["redis_queue", "redis_pubsub", "rabbitmq_queue", "rabbitmq_pubsub", "kafka"];
+var queue_types = ["redis_queue", "redis_pubsub", "rabbit_queue", "rabbit_pubsub", "kafka"];
 var queue_type = "stdout";
 if (queue_types.indexOf(process.env.QUEUE_TYPE) > -1) {
   queue_type = process.env.QUEUE_TYPE;

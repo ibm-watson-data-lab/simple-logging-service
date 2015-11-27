@@ -17,6 +17,7 @@
     "express": "^4.10.6",
     "lodash": "~3.9.3",
     "node-redis": "^0.1.7",
+    "rabbit.js": "^0.4.4",
     "when": "~3.7.3"
   },
   "devDependencies": {

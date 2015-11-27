@@ -116,7 +116,11 @@ The only things you need to alter from this code snippet is the URL assigned to 
 
 To stream the events to `stdout` is the default behaviour of the Metrics Collector Microservice. Simply run the app and events will appear on the terminal.
 
-## Running with QUEUE_TYPE=redis_queue
+## Running with Redis
+
+Read the [Getting Started with Redis on Compose.io](https://www.compose.io/articles/get-started-with-redis-on-compose/). Spin up a new Redis cluster on Compose.io and use the credentials you get to feed into your Bluemix Redis by Compose service 
+
+### Running with QUEUE_TYPE=redis_queue
 
 Define your environment variable and run the process
 
@@ -146,7 +150,7 @@ while the `RPOP` command will retrieve the oldest item on the queue:
 
 N.B if you have supplied a `QUEUE_NAME` environment variable, then use that value rather than 'mcqueue' in the above examples
 
-## Running with QUEUE_TYPE=redis_pubsub
+### Running with QUEUE_TYPE=redis_pubsub
 
 Define your environment variable and run the process
 
@@ -177,8 +181,53 @@ As you generate data in the application, you will see it appear in your `redis-c
 3) "{\"action_name\":\"\",\"idsite\":\"mysite\",\"rec\":1,\"r\":578292,\"h\":16,\"m\":35,\"s\":44,\"url\":\"http://localhost:8000/metrics.html#\",\"$_id\":\"772aa0d070215d3b\",\"$_idts\":1448553217,\"$_idvc\":1,\"$_idn\":0,\"$_refts\":0,\"$_viewts\":1448553217,\"cs\":\"windows-1252\",\"send_image\":0,\"pdf\":1,\"qt\":0,\"realp\":0,\"wma\":0,\"dir\":0,\"fla\":1,\"java\":1,\"gears\":0,\"ag\":0,\"cookie\":1,\"res\":\"1440x900\",\"gt_ms\":13,\"type\":\"pageView\",\"ip\":\"::1\"}"
 ```
 
+## Running with RabbitMQ
 
+Read the [Getting Started with RabbitMQ on Compose.io](https://www.compose.io/articles/getting-started-with-rabbitmq/). You'll need to create a RabbitMQ cluster and create a user with `.*` access, as described in that document. As the Compose.io RabbitMQ service is very new and there isn't a Bluemix service for it yet, you will need to define the URL of your RabbitMQ service as a custom environment variable `RABBITMQ_URL` in Bluemix or in the local environment:
 
+```sh
+export RABBITMQ_URL=amqps://myrabbbituser:mybunnyrabbit99@aws-us-east-1-portal.8.dblayer.com:10705/amazing-rabbitmq-72
+```sh
+
+or
+
+```sh
+export RABBITMQ_URL=amqp://localhost
+```
+
+### Running with QUEUE_TYPE=rabbit_queue
+
+Define your environment variable and run the process
+
+```sh
+> export QUEUE_TYPE=rabbit_queue
+> node server.js
+Queue mode: rabbit_queue
+Connecting to Rabbit MQ server on amqps:*****@aws-us-east-1-portal.8.dblayer.com:10705/dazzling-rabbitmq-72
+CDS Labs Metrics Collector Microservice started on port 8081 : Fri Nov 27 2015 14:04:35 GMT+0000 (GMT)
+Connected to RabbitMQ queue 'mcqueue'
+```
+
+After generating some data, in your web application, you should be able to use Compose.io's RabbitMQ Admin page to see the data coming in:
+
+![RabbitMQ queue drilldown](https://github.com/glynnbird/metrics-collector-microservice/raw/master/img/rabbit2.png)
+
+### Running with QUEUE_TYPE=rabbit_pubsub
+
+Define your environment variable and run the process
+
+```sh
+> export QUEUE_TYPE=rabbit_pubsub
+> node server.js
+Queue mode: rabbit_pubsub
+Connecting to Rabbit MQ server on amqps:*****@aws-us-east-1-portal.8.dblayer.com:10705/dazzling-rabbitmq-72
+CCDS Labs Metrics Collector Microservice started on port 8081 : Fri Nov 27 2015 15:08:53 GMT+0000 (GMT)
+Connected to RabbitMQ pubsub channel 'mcpubsub'
+```
+
+After generating some data, in your web application, you should be able to use Compose.io's RabbitMQ Admin page to see the data coming in:
+
+![RabbitMQ queue drilldown](https://github.com/glynnbird/metrics-collector-microservice/raw/master/img/rabbit2.png)
 
 -----
 
