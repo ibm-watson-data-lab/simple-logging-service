@@ -227,7 +227,7 @@ Connected to RabbitMQ pubsub channel 'mcpubsub'
 
 After generating some data, in your web application, you should be able to use Compose.io's RabbitMQ Admin page to see the data coming in:
 
-![RabbitMQ queue drilldown](https://github.com/glynnbird/metrics-collector-microservice/raw/master/img/rabbitmq2.png)
+![RabbitMQ queue drilldown](https://github.com/glynnbird/metrics-collector-microservice/raw/master/img/rabbitmq3.png)
 
 -----
 
