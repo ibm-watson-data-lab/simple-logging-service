@@ -229,6 +229,26 @@ After generating some data, in your web application, you should be able to use C
 
 ![RabbitMQ queue drilldown](https://github.com/glynnbird/metrics-collector-microservice/raw/master/img/rabbitmq3.png)
 
+
+## Running with IBM Message Hub (Apache Kafka)
+
+Create an Message Hub instance in Bluemix. Bluemix will create the necessary environment variables 
+
+Define your environment variable and run the process
+
+```sh
+> export QUEUE_TYPE=kafka
+> node server.js
+Queue mode: kafka
+Connecting to Kafka MQ server
+CDS Labs Metrics Collector Microservice started on port 8081 : Fri Nov 27 2015 15:57:31 GMT+0000 (GMT)
+Created topic 'mcqueue'
+```
+
+## Conclusion
+
+The Metrics Collector Microservice is a Bluemix app that collects web metrics. Instead of storing the metrics directly in a database, it writes the data to choice of queues (Redis, RabbitMQ and Apache Kafka). This app can be run on many instances to share the data collection load and coupled with other microservices that consume and analyse the data, it could be used as the basis of a high volume metrics collection service.
+
 -----
 
 _<sup>© "Apache", "CouchDB", "Apache CouchDB" and the CouchDB logo are trademarks or registered trademarks of The Apache Software Foundation. All other brands and trademarks are the property of their respective owners.</sup>_
