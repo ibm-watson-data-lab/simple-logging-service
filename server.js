@@ -34,7 +34,7 @@ if (queue_types.indexOf(process.env.QUEUE_TYPE) > -1) {
   queue_type = process.env.QUEUE_TYPE;
 }
 console.log("Queue mode:", queue_type);
-var q = require('./lib/' + queue_type);
+var q = require('./plugins/' + queue_type);
 
 //Configure tracker end point
 app.get("/tracker", function( req, res ) {

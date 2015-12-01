@@ -17,8 +17,9 @@ context.on('ready', function() {
 // write the data to a RabbitMQ pubsub channel
 var add = function(payload, callback) {
   if (q) {
-    q.write(JSON.stringify(payload), 'utf8');
-    callback(null, null);
+    q.write(JSON.stringify(payload), 'utf8').then(function() {
+      callback(null, null);
+    });
   } else {
     callback("Not ready", null);
   }
