@@ -17,9 +17,8 @@ context.on('ready', function() {
 // write the data to a RabbitMQ queue
 var add = function(payload, callback) {
   if (q) {
-    q.write(JSON.stringify(payload), 'utf8').then(function() {
-      callback(null, null);
-    });
+    q.write(JSON.stringify(payload), 'utf8');
+    callback(null, null);
   } else {
     callback("Not ready", null);
   }

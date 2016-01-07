@@ -12,7 +12,7 @@ console.log("Connecting to Redis server on", credentials.public_hostname);
 var add = function(payload, callback) {
   
    client.publish(queue_name, JSON.stringify(payload), function(err, buffer) {
-    console.log(err, buffer);
+//    console.log(err, buffer);
     callback(null,null);
   });
   
