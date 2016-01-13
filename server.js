@@ -56,7 +56,7 @@ app.get("/tracker", function( req, res ) {
 			}
 			if ( _.startsWith( key, '_') ) {
 				//Cloudant doesn't authorize key starting with _
-				return "$" + key;
+				return key.replace(/^_/,'');
 			}
 			return key;
 		}).value();
