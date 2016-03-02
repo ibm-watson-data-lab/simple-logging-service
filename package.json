@@ -1,10 +1,13 @@
 {
   "name": "cds-labs-metrics-collector-microservice",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Backend collector of client tracking data - this microservice simply adds data to a queue",
   "main": "server.js",
   "scripts": {},
-  "repository": "https://github.com/glynnbird/metrics-collector-microservice",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibm-cds-labs/metrics-collector-microservice"
+  },
   "keywords": [
     "tracking",
     "microservice"

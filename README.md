@@ -18,7 +18,7 @@ This project is based on the [Simple Metrics Collector](https://github.com/ibm-c
 
 The fastest way to deploy this application to Bluemix is to click this **Deploy to Bluemix** button. Or, if you prefer working from the command line, skip to the **Deploy Manually** section.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button_x2.png)](https://bluemix.net/deploy?repository=https://github.com/glynnbird/metrics-collector-microservice)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button_x2.png)](https://bluemix.net/deploy?repository=https://github.com/ibm-cds-labs/metrics-collector-microservice)
 
 **Don't have a Bluemix account?** If you haven't already, you'll be prompted to sign up for a Bluemix account when you click the button.  Sign up, verify your email address, then return here and click the the **Deploy to Bluemix** button again. Your new credentials let you deploy to the platform and also to code online with Bluemix and Git. If you have questions about working in Bluemix, find answers in the [Bluemix Docs](https://www.ng.bluemix.net/docs/).
 
