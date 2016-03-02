@@ -98,4 +98,4 @@ if (process.env.VCAP_APP_HOST) {
 	http.createServer(app).listen(port,connected);
 }
 
-//require("cf-deployment-tracker-client").track();
+require("cf-deployment-tracker-client").track();
