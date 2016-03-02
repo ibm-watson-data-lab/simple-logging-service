@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Backend collector of client tracking data - this microservice simply adds data to a queue",
   "main": "server.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node server.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ibm-cds-labs/metrics-collector-microservice"
