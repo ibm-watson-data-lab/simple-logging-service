@@ -1,7 +1,7 @@
 
 # Metrics Collector Microservice
 
-This project is based on the [Simple Metrics Collector](https://github.com/ibm-cds-labs/metrics-collector) which is a simple way of collecting web analytics and storing the data in a Cloudant database. This project breaks this concept down using a Microservices architecture, so instead of being limited to a writing data to a Cloudant database, this project will add data to a variety out outputs, depending on a runtime environment variable:
+This project is based on the [Simple Metrics Collector](https://github.com/ibm-cds-labs/metrics-collector) which is a simple way of collecting web analytics and storing the data in a Cloudant database. This project breaks this concept down using a Microservices architecture, so instead of just writing data to a Cloudant database, this project adds data to a variety out outputs, depending on a runtime environment variable:
 
 1. stdout - to the terminal only
 2. redis_queue - to a Redis queue
@@ -56,7 +56,7 @@ _Once that line is removed, you may also uninstall the `cf-deployment-tracker-cl
 
 ## Environment variables
 
-The installation can be configured by adding a number of custom environment variables and then restarting the application
+You can configure the installation by adding a number of custom environment variables and then restarting the application.
 
 ### QUEUE_TYPE
 
@@ -77,7 +77,6 @@ The value of QUEUE_NAME determines which queue/topic the data is written to. If 
 
 `VCAP_SERVICES` is created for you by the Bluemix Cloud Foundry service. It defines the credentials of the attached services that this app can connect to. 
 
-...
 
 ## Client-side code
 
@@ -108,7 +107,7 @@ Once the application is installed and configured, then your web-page needs to ha
 </html>
 ```
 
-The main script tag loads the `piwik.js` JavaScript from the server and records a page tracking event. It also ensures that any link clicks being tracked too (enableLinkTracking). The example above also shows how asynchronous actions can be recorded too by calling `_paq.push` when the event occurs.
+The main script tag loads the `piwik.js` JavaScript from the server and records a page-tracking event. It also ensures that any link clicks are tracked too (enableLinkTracking). The example above also shows how asynchronous actions can be recorded by calling `_paq.push` when the event occurs.
 
 The only things you need to alter from this code snippet is the URL assigned to variable `u` which should be the URL of your installation and the value passed to setSiteId.
  
@@ -132,7 +131,7 @@ Connecting to Redis server on localhost:6379
 CDS Labs Metrics Collector Microservice started on port 8081 : Thu Nov 26 2015 16:32:15 GMT+0000 (GMT)
 ```
 
-After generating some data, in your web application, the Redis command-line interface can be used to check the collected data. The `LLEN` command can tell you how many items have accumlated on the queue:
+After generating some data in your web application, you can use the Redis command-line interface to check the collected data. The `LLEN` command can tell you how many items have accumlated on the queue:
 
 ```sh
 > redis-cli
@@ -148,11 +147,11 @@ while the `RPOP` command will retrieve the oldest item on the queue:
 "{\"action_name\":\"\",\"idsite\":\"mysite\",\"rec\":1,\"r\":176450,\"h\":16,\"m\":28,\"s\":14,\"url\":\"http://localhost:8000/metrics.html#\",\"$_id\":\"772aa0d070215d3b\",\"$_idts\":1448553217,\"$_idvc\":1,\"$_idn\":0,\"$_refts\":0,\"$_viewts\":1448553217,\"cs\":\"windows-1252\",\"send_image\":0,\"pdf\":1,\"qt\":0,\"realp\":0,\"wma\":0,\"dir\":0,\"fla\":1,\"java\":1,\"gears\":0,\"ag\":0,\"cookie\":1,\"res\":\"1440x900\",\"gt_ms\":7,\"type\":\"pageView\",\"ip\":\"::1\"}"
 ```
 
-N.B if you have supplied a `QUEUE_NAME` environment variable, then use that value rather than 'mcqueue' in the above examples
+**Note:** if you have supplied a `QUEUE_NAME` environment variable, then use that value rather than 'mcqueue' in the above examples.
 
 ### Running with QUEUE_TYPE=redis_pubsub
 
-Define your environment variable and run the process
+Define your environment variable and run the process.
 
 ```sh
 > export QUEUE_TYPE=redis_pubsub
@@ -162,7 +161,7 @@ Connecting to Redis server on localhost:6379
 CDS Labs Metrics Collector Microservice started on port 8081 : Thu Nov 26 2015 16:32:15 GMT+0000 (GMT)
 ```
 
-Using the Redis command-line interface, we can subscribe to the pubsub channel (mcpubsub or the value of `QUEUE_NAME` you supplied):
+Using the Redis command-line interface, you can subscribe to the pubsub channel (mcpubsub or the value of `QUEUE_NAME` you supplied):
 
 ```
 > redis-cli
@@ -173,7 +172,7 @@ Reading messages... (press Ctrl-C to quit)
 3) (integer) 1
 ```
 
-As you generate data in the application, you will see it appear in your `redis-cli` terminal:
+As you generate data in the application, you see it appear in your `redis-cli` terminal:
 
 ```
 1) "message"
@@ -183,7 +182,7 @@ As you generate data in the application, you will see it appear in your `redis-c
 
 ## Running with RabbitMQ
 
-Read the [Getting Started with RabbitMQ on Compose.io](https://www.compose.io/articles/getting-started-with-rabbitmq/). You'll need to create a RabbitMQ cluster and create a user with `.*` access, as described in that document. As the Compose.io RabbitMQ service is very new and there isn't a Bluemix service for it yet, you will need to define the URL of your RabbitMQ service as a custom environment variable `RABBITMQ_URL` in Bluemix or in the local environment:
+Read the [Getting Started with RabbitMQ on Compose.io](https://www.compose.io/articles/getting-started-with-rabbitmq/). You need to create a RabbitMQ cluster and create a user with `.*` access, as described in that document. As the Compose.io RabbitMQ service is very new, and there isn't a Bluemix service for it yet, you need to define the URL of your RabbitMQ service as a custom environment variable `RABBITMQ_URL` in Bluemix or in the local environment:
 
 ```sh
 export RABBITMQ_URL=amqps://myrabbbituser:mybunnyrabbit99@aws-us-east-1-portal.8.dblayer.com:10705/amazing-rabbitmq-72
@@ -214,7 +213,7 @@ After generating some data, in your web application, you should be able to use C
 
 ### Running with QUEUE_TYPE=rabbit_pubsub
 
-Define your environment variable and run the process
+Define your environment variable and run the process.
 
 ```sh
 > export QUEUE_TYPE=rabbit_pubsub
@@ -225,7 +224,7 @@ CCDS Labs Metrics Collector Microservice started on port 8081 : Fri Nov 27 2015 
 Connected to RabbitMQ pubsub channel 'mcpubsub'
 ```
 
-After generating some data, in your web application, you should be able to use Compose.io's RabbitMQ Admin page to see the data coming in:
+After generating some data in your web application, you should be able to use Compose.io's RabbitMQ Admin page to see the data coming in:
 
 ![RabbitMQ queue drilldown](https://github.com/glynnbird/metrics-collector-microservice/raw/master/img/rabbitmq3.png)
 
@@ -234,7 +233,7 @@ After generating some data, in your web application, you should be able to use C
 
 Create an Message Hub instance in Bluemix. Bluemix will create the necessary environment variables 
 
-Define your environment variable and run the process
+Define your environment variable and run the process.
 
 ```sh
 > export QUEUE_TYPE=kafka
@@ -247,7 +246,7 @@ Created topic 'mcqueue'
 
 ## Conclusion
 
-The Metrics Collector Microservice is a Bluemix app that collects web metrics. Instead of storing the metrics directly in a database, it writes the data to choice of queues (Redis, RabbitMQ and Apache Kafka). This app can be run on many instances to share the data collection load and coupled with other microservices that consume and analyse the data, it could be used as the basis of a high volume metrics collection service.
+The Metrics Collector Microservice is a Bluemix app that collects web metrics. Instead of storing the metrics directly in a database, it writes the data to a choice of queues (Redis, RabbitMQ and Apache Kafka). You can run this app on many instances to share the data collection load and couple it with other microservices that consume and analyse the data. It could serve as the basis of a high-volume metrics collection service.
 
 -----
 
