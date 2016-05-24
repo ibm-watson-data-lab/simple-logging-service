@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "body-parser": "^1.11.0",
-    "cf-deployment-tracker-client": "0.0.7",
+    "cf-deployment-tracker-client": "^0.x",
     "cfenv": "*",
     "errorhandler": "~1.3.6",
     "express": "^4.10.6",
