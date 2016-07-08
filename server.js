@@ -71,7 +71,7 @@ app.get("/tracker", function( req, res ) {
 	if ( ip ) {
 		jsonPayload.ip = ip;
 	}
-	
+	console.log(jsonPayload);
   q.add(jsonPayload, function(err, data) {
     	res.status(200).end();
   });

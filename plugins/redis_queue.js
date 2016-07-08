@@ -3,18 +3,26 @@ var redis = require('node-redis'),
   bits = credentials.public_hostname.split('/'),
   hostname = bits[0],
   port = parseInt(bits[1]),
-  client = redis.createClient(port, hostname, credentials.password),
+  client = null,
   queue_name = process.env.QUEUE_NAME || "mcqueue";
   
 console.log("Connecting to Redis server on", credentials.public_hostname);  
 
+client = redis.createClient(port, hostname, credentials.password);
+client.on("error", function (err) {
+  console.error("Redis:" + err);
+});
+
 // LPUSH the data to a Redis queue
 var add = function(payload, callback) {
-  
-   client.lpush(queue_name, JSON.stringify(payload), function(err, buffer) {
-    callback(null,null);
-  });
-  
+  if (client) {
+    client.lpush(queue_name, JSON.stringify(payload), function(err, buffer) {
+      if (err) {
+        console.error("Redis error", err);
+      }
+      callback(null,null);
+    });
+  }
 };
 
 
