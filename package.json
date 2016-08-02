@@ -24,6 +24,7 @@
     "message-hub-rest": "^1.0.1",
     "node-redis": "^0.1.7",
     "rabbit.js": "^0.4.4",
+    "simple-orchestration-js": "^0.1.0",
     "when": "~3.7.3"
   },
   "devDependencies": {
