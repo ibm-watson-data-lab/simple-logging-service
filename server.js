@@ -106,7 +106,7 @@ if (process.env.VCAP_APP_HOST) {
 if (process.env.ETCD_URL) {
   var SOS = require('simple-orchestration-js')
   var sos = new SOS({ url: process.env.ETCD_URL, strictSSL: false });
-  sos.register('cds', 'metrics-collector', { url: url }, { ttl: 30 });
+  sos.register('search', 'metrics-collector', { url: url, name: "Simple Metrics Collector" }, { ttl: 30 });
 }
 console.log('Public URL', url);
 
