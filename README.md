@@ -73,6 +73,12 @@ The value of QUEUE_NAME determines which queue/topic the data is written to. If 
 5. rabbit_pubsub - mcpubsub
 6. kafka - mcqueue
 
+### ETCD_URL
+
+`ETCD_URL` determines which [Etcd](https://github.com/coreos/etcd) instance should be used for Discovery Mode.
+
+Discovery Mode allows the Metrics Collector Microservice to be utilised by the [Simple Search Service](https://github.com/ibm-cds-labs/simple-search-service) to log searches. This is achieved by using the [Simple Orchestration](https://github.com/mattcollins84/simple-orchestration-js) module.
+
 ### VCAP_SERVICES
 
 `VCAP_SERVICES` is created for you by the Bluemix Cloud Foundry service. It defines the credentials of the attached services that this app can connect to. 
