@@ -16,6 +16,12 @@ var express = require('express'),
   errorHandler = require('errorhandler'),
   _ = require('lodash');
 
+// cfenv provides access to your Cloud Foundry environment
+var cfenv = require('cfenv');
+
+// get the app environment from Cloud Foundry
+var appEnv = cfenv.getAppEnv();
+
 //Create and configure the express app
 var app = express();
 app.use(express.static(path.join(__dirname, 'js')));
@@ -96,7 +102,7 @@ if (process.env.VCAP_APP_HOST) {
   http.createServer(app).listen(process.env.VCAP_APP_PORT,
     process.env.VCAP_APP_HOST,
     connected);
-  url = process.env.VCAP_APP_HOST + '/tracker';
+  url = appEnv.url + '/tracker';
 } else {
   http.createServer(app).listen(port, connected);
   url = 'http://localhost:' + port + '/tracker';
@@ -104,9 +110,9 @@ if (process.env.VCAP_APP_HOST) {
 
 // if we detect etcd
 if (process.env.ETCD_URL) {
-  var SOS = require('simple-orchestration-js')
-  var sos = new SOS({ url: process.env.ETCD_URL, strictSSL: false });
-  sos.register('search', 'metrics-collector', { url: url, name: "Simple Metrics Collector" }, { ttl: 30 });
+  var Registry = require('simple-service-registry')
+  var r = new Registry({ url: process.env.ETCD_URL, strictSSL: false });
+  r.register('search', 'metrics-collector', { url: url, name: "Simple Metrics Collector" }, { ttl: 30 });
 }
 console.log('Public URL', url);
 

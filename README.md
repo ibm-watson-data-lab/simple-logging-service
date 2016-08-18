@@ -75,9 +75,9 @@ The value of QUEUE_NAME determines which queue/topic the data is written to. If 
 
 ### ETCD_URL
 
-`ETCD_URL` determines which [Etcd](https://github.com/coreos/etcd) instance should be used for Discovery Mode.
+`ETCD_URL` determines which [Etcd](https://github.com/coreos/etcd) instance should be used for the Service Registry.
 
-Discovery Mode allows the Metrics Collector Microservice to be utilised by the [Simple Search Service](https://github.com/ibm-cds-labs/simple-search-service) to log searches. This is achieved by using the [Simple Orchestration](https://github.com/mattcollins84/simple-orchestration-js) module.
+The Service Registry allows the Metrics Collector Microservice to be utilised by the [Simple Search Service](https://github.com/ibm-cds-labs/simple-search-service) to log searches. This is achieved by using the [Simple Service Registry](https://github.com/mattcollins84/simple-service-registry) module.
 
 ### VCAP_SERVICES
 
