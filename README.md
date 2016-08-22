@@ -250,6 +250,9 @@ CDS Labs Metrics Collector Microservice started on port 8081 : Fri Nov 27 2015 1
 Created topic 'mcqueue'
 ```
 
+## Web output
+There is a realtime web output of each item logged at `/output`. Load this page and wait for events to be displayed at the front end. This page does not load any historical data.
+
 ## Conclusion
 
 The Metrics Collector Microservice is a Bluemix app that collects web metrics. Instead of storing the metrics directly in a database, it writes the data to a choice of queues (Redis, RabbitMQ and Apache Kafka). You can run this app on many instances to share the data collection load and couple it with other microservices that consume and analyse the data. It could serve as the basis of a high-volume metrics collection service.

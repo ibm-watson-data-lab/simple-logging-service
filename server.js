@@ -11,7 +11,6 @@
 var express = require('express'),
   fs = require('fs'),
   path = require('path'),
-  http = require('http'),
   bodyParser = require('body-parser'),
   errorHandler = require('errorhandler'),
   _ = require('lodash');
@@ -24,7 +23,9 @@ var appEnv = cfenv.getAppEnv();
 
 //Create and configure the express app
 var app = express();
-app.use(express.static(path.join(__dirname, 'js')));
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(errorHandler({ dumpExceptions: true, showStack: true }));
@@ -78,11 +79,18 @@ app.get("/tracker", function (req, res) {
     jsonPayload.ip = ip;
   }
   q.add(jsonPayload, function (err, data) {
+    io.emit("output", jsonPayload)
     res.status(200).end();
   });
   res.status(200).end();
 
 });
+
+app.get("/output", function(request, response) {
+
+  return response.sendFile(path.join(__dirname, 'public', 'output.html'));
+
+})
 
 app.get("*", function (request, response) {
   console.log("GET request url %s : headers: %j", request.url, request.headers);
@@ -99,12 +107,12 @@ var connected = function () {
 var url = null;
 
 if (process.env.VCAP_APP_HOST) {
-  http.createServer(app).listen(process.env.VCAP_APP_PORT,
+  http.listen(process.env.VCAP_APP_PORT,
     process.env.VCAP_APP_HOST,
     connected);
   url = appEnv.url + '/tracker';
 } else {
-  http.createServer(app).listen(port, connected);
+  http.listen(port, connected);
   url = 'http://localhost:' + port + '/tracker';
 }
 

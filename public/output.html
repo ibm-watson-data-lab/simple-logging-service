@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Output stream</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/vue.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/vue-socketio.min.js"></script>
+    <script>
+
+      // Tell Vue to use Socket.io
+      var socketUrl = `${location.protocol}//${location.hostname}${(location.port ? ':'+location.port: '')}`;
+      Vue.use(VueSocketio, socketUrl);
+
+      // when page is ready
+      var app;
+      $(document).ready(function() {
+
+        app = new Vue({
+          el: '#app',
+          data: {
+            logs: []
+          },
+          methods: {
+          },
+          computed: {
+          },
+          sockets:{
+            output: function(log) {
+              this.logs.push(JSON.stringify(log, null, 2));
+            }
+          }
+        })
+
+      });
+      
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="container" id="app">
+      
+      <h1>Logging Output</h1>
+
+      <div class="row" v-for="log in logs" track-by="$index">
+      	
+<pre>
+{{ log }}
+</pre>    	
+
+      </div>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
