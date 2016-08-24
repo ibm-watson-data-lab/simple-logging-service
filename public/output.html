@@ -34,8 +34,14 @@
             logs: []
           },
           methods: {
+          	clear: function() {
+          		this.logs = [];
+          	}
           },
           computed: {
+          	reverse: function() {
+          		return this.logs.reverse()
+          	}
           },
           sockets:{
             output: function(log) {
@@ -54,9 +60,9 @@
 
     <div class="container" id="app">
       
-      <h1>Logging Output</h1>
+      <h1>Logging Output<span class="pull-right"><a class="btn btn-lg btn-info" v-on:click="clear">Clear</a></span></h1>
 
-      <div class="row" v-for="log in logs" track-by="$index">
+      <div class="row" v-for="log in reverse" track-by="$index">
       	
 <pre>
 {{ log }}
