@@ -86,7 +86,7 @@ app.get("/tracker", function (req, res) {
 
 });
 
-app.get("/output", function(request, response) {
+app.get("/", function(request, response) {
 
   return response.sendFile(path.join(__dirname, 'public', 'output.html'));
 
