@@ -24,6 +24,8 @@
     "message-hub-rest": "^1.0.1",
     "node-redis": "^0.1.7",
     "rabbit.js": "^0.4.4",
+    "simple-service-registry": "^0.1.1",
+    "socket.io": "^1.4.8",
     "when": "~3.7.3"
   },
   "devDependencies": {

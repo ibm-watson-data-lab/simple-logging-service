@@ -73,6 +73,12 @@ The value of QUEUE_NAME determines which queue/topic the data is written to. If 
 5. rabbit_pubsub - mcpubsub
 6. kafka - mcqueue
 
+### ETCD_URL
+
+`ETCD_URL` determines which [Etcd](https://github.com/coreos/etcd) instance should be used for the Service Registry.
+
+The Service Registry allows the Metrics Collector Microservice to be utilised by the [Simple Search Service](https://github.com/ibm-cds-labs/simple-search-service) to log searches. This is achieved by using the [Simple Service Registry](https://github.com/mattcollins84/simple-service-registry) module.
+
 ### VCAP_SERVICES
 
 `VCAP_SERVICES` is created for you by the Bluemix Cloud Foundry service. It defines the credentials of the attached services that this app can connect to. 
@@ -243,6 +249,9 @@ Connecting to Kafka MQ server
 CDS Labs Simple Logging Service started on port 8081 : Fri Nov 27 2015 15:57:31 GMT+0000 (GMT)
 Created topic 'mcqueue'
 ```
+
+## Web output
+There is a realtime web output of each item logged at `/output`. Load this page and wait for events to be displayed at the front end. This page does not load any historical data.
 
 ## Conclusion
 
