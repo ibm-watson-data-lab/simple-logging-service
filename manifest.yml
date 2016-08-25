@@ -1,6 +1,6 @@
 ---
 applications:
-- name: metrics-collector-microservice
+- name: simple-logging-service
   memory: 256M
   instances: 1
   domain: mybluemix.net
