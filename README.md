@@ -1,5 +1,5 @@
 
-# Metrics Collector Microservice
+# Simple Logging Service
 
 This project is based on the [Simple Metrics Collector](https://github.com/ibm-cds-labs/metrics-collector) which is a simple way of collecting web analytics and storing the data in a Cloudant database. This project breaks this concept down using a Microservices architecture, so instead of just writing data to a Cloudant database, this project adds data to a variety out outputs, depending on a runtime environment variable:
 
@@ -10,7 +10,7 @@ This project is based on the [Simple Metrics Collector](https://github.com/ibm-c
 5. rabbit_pubsub - to a RabbitMQ pubsub channel
 6. kafka - to an Apache Kafka or IBM Message Hub topic
 
-![schematic](https://github.com/glynnbird/metrics-collector-microservice/raw/master/img/mcms.png "Schematic Diagram")
+![schematic](https://github.com/ibm-cds-labs/simple-logging-service/raw/master/img/simple-logging-service.png "Schematic Diagram")
 
 ## Deploy to IBM Bluemix
 
@@ -18,7 +18,7 @@ This project is based on the [Simple Metrics Collector](https://github.com/ibm-c
 
 The fastest way to deploy this application to Bluemix is to click this **Deploy to Bluemix** button. Or, if you prefer working from the command line, skip to the **Deploy Manually** section.
 
-[![Deploy to Bluemix](https://deployment-tracker.mybluemix.net/stats/c4a7dede394373547d56ebc57943206a/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-cds-labs/metrics-collector-microservice)
+[![Deploy to Bluemix](https://deployment-tracker.mybluemix.net/stats/c4a7dede394373547d56ebc57943206a/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-cds-labs/simple-logging-service)
 
 **Don't have a Bluemix account?** If you haven't already, you'll be prompted to sign up for a Bluemix account when you click the button.  Sign up, verify your email address, then return here and click the the **Deploy to Bluemix** button again. Your new credentials let you deploy to the platform and also to code online with Bluemix and Git. If you have questions about working in Bluemix, find answers in the [Bluemix Docs](https://www.ng.bluemix.net/docs/).
 
@@ -119,7 +119,7 @@ The only things you need to alter from this code snippet is the URL assigned to 
  
 ## Running with QUEUE_TYPE=stdout
 
-To stream the events to `stdout` is the default behaviour of the Metrics Collector Microservice. Simply run the app and events will appear on the terminal.
+To stream the events to `stdout` is the default behaviour of the Simple Logging Service. Simply run the app and events will appear on the terminal.
 
 ## Running with Redis
 
@@ -134,7 +134,7 @@ Define your environment variable and run the process
 > node server.js
 Queue mode: redis_queue
 Connecting to Redis server on localhost:6379
-CDS Labs Metrics Collector Microservice started on port 8081 : Thu Nov 26 2015 16:32:15 GMT+0000 (GMT)
+CDS Labs Simple Logging Service started on port 8081 : Thu Nov 26 2015 16:32:15 GMT+0000 (GMT)
 ```
 
 After generating some data in your web application, you can use the Redis command-line interface to check the collected data. The `LLEN` command can tell you how many items have accumlated on the queue:
@@ -164,7 +164,7 @@ Define your environment variable and run the process.
 > node server.js
 Queue mode: redis_pubsub
 Connecting to Redis server on localhost:6379
-CDS Labs Metrics Collector Microservice started on port 8081 : Thu Nov 26 2015 16:32:15 GMT+0000 (GMT)
+CDS Labs Simple Logigng Service started on port 8081 : Thu Nov 26 2015 16:32:15 GMT+0000 (GMT)
 ```
 
 Using the Redis command-line interface, you can subscribe to the pubsub channel (mcpubsub or the value of `QUEUE_NAME` you supplied):
@@ -209,7 +209,7 @@ Define your environment variable and run the process
 > node server.js
 Queue mode: rabbit_queue
 Connecting to Rabbit MQ server on amqps:*****@aws-us-east-1-portal.8.dblayer.com:10705/dazzling-rabbitmq-72
-CDS Labs Metrics Collector Microservice started on port 8081 : Fri Nov 27 2015 14:04:35 GMT+0000 (GMT)
+CDS Labs Simple Logging Service started on port 8081 : Fri Nov 27 2015 14:04:35 GMT+0000 (GMT)
 Connected to RabbitMQ queue 'mcqueue'
 ```
 
@@ -226,7 +226,7 @@ Define your environment variable and run the process.
 > node server.js
 Queue mode: rabbit_pubsub
 Connecting to Rabbit MQ server on amqps:*****@aws-us-east-1-portal.8.dblayer.com:10705/dazzling-rabbitmq-72
-CCDS Labs Metrics Collector Microservice started on port 8081 : Fri Nov 27 2015 15:08:53 GMT+0000 (GMT)
+CCDS Labs Simple Logging Service started on port 8081 : Fri Nov 27 2015 15:08:53 GMT+0000 (GMT)
 Connected to RabbitMQ pubsub channel 'mcpubsub'
 ```
 
@@ -246,7 +246,7 @@ Define your environment variable and run the process.
 > node server.js
 Queue mode: kafka
 Connecting to Kafka MQ server
-CDS Labs Metrics Collector Microservice started on port 8081 : Fri Nov 27 2015 15:57:31 GMT+0000 (GMT)
+CDS Labs Simple Logging Service started on port 8081 : Fri Nov 27 2015 15:57:31 GMT+0000 (GMT)
 Created topic 'mcqueue'
 ```
 
@@ -255,7 +255,7 @@ There is a realtime web output of each item logged at `/output`. Load this page 
 
 ## Conclusion
 
-The Metrics Collector Microservice is a Bluemix app that collects web metrics. Instead of storing the metrics directly in a database, it writes the data to a choice of queues (Redis, RabbitMQ and Apache Kafka). You can run this app on many instances to share the data collection load and couple it with other microservices that consume and analyse the data. It could serve as the basis of a high-volume metrics collection service.
+The Simple Logging Service is a Bluemix app that collects web metrics. Instead of storing the metrics directly in a database, it writes the data to a choice of queues (Redis, RabbitMQ and Apache Kafka). You can run this app on many instances to share the data collection load and couple it with other microservices that consume and analyse the data. It could serve as the basis of a high-volume metrics collection service.
 
 -----
 
