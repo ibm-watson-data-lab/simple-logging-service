@@ -1,0 +1,5 @@
+
+.v-link-active:not(.top-nav) {
+	background-color: #f0f2f4;
+	box-shadow: inset 8px 0 0 0 #5aaafa;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>IBM Cloud Data Services | Simple Logging Service Output Stream</title>
+
+    <link rel="stylesheet" href="css/master.css" type="text/css">
+    <link rel="stylesheet" href="css/sls.css" type="text/css">
+
+    <script src="/js/vue.js"></script>
+    <script src="/js/vue-router.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/vue-socketio.min.js"></script>
+    <script src="/js/sls.js"></script>
+  </head>
+
+  <body id="loggingservice" class="capped-layout">
+    <header class="capped-layout_cap app-banner">
+      <a class="app-banner_title" rel="home" href="https://developer.ibm.com/clouddataservices">IBM Cloud Data Services // Dev</a>
+    </header>
+
+    <div class="capped-layout_body bookend-layout">
+      <nav class="bookend-layout_bookend theme_light bg_white">
+        <ul class="tree-nav">
+          <li class="tree-nav_item">
+            <a class="tree-nav_link top-nav" v-link="{path: '/'}">Simple Logging Service</a>
+            <ul class="tree-nav">
+              <li class="tree-nav_item">
+                <a class="tree-nav_link" v-link="{path: '/stream'}">Activity Stream</a></li>
+              <li class="tree-nav_item">
+                <a class="tree-nav_link" v-link="{path: '/ingredients'}">Ingredients</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="bookend-layout_body theme_dark scrollable-y">
+        <router-view></router-view>
+      </div>
+    </div>
+
+
+<!-- START template: about -->
+    <script type="text/x-template" id="about">
+      <section class="layout_section ng-scope">
+        <h1 class="type_heading">
+          <mark class="type_mark">Welcome to the Simple Logging Service!</mark>
+        </h1>
+        <p class="type_copy">
+          The <a class="type_link" target="_blank"
+            href="https://github.com/ibm-cds-labs/simple-logging-service">
+            Simple Logging Service</a> is a simple way of collecting web
+            analytics and storing the data in a Cloudant database.
+        </p>
+      </section>
+    </script>
+<!-- END template: about -->
+
+<!-- START template: stream -->
+    <script type="text/x-template" id="stream">
+      <section class="layout_section theme_light">
+        <h1 class="type_heading">
+          <mark class="type_mark">Activity Stream</mark>
+        </h1>
+        <p class="type_copy">
+          Real-time output of items being logged. This page does not load any historical data.
+        </p>
+      </section>
+      <section class="layout_section">
+        <button id="clear" class="button_primary" v-on:click="clear"> Clear </button>
+
+        <code class="type_codeblock" v-for="log in reverse" track-by="$index">{{ log }}</code>
+      </section>
+    </script>
+<!-- END template: stream -->
+
+<!-- START template: ingredients -->
+    <script type="text/x-template" id="ingredients">
+      <section class="layout_section theme_light">
+        <h1 class="type_heading">
+          <mark class="type_mark">Ingredients</mark>
+        </h1>
+        <p class="type_copy">
+          The stuff that's baked in.
+        </p>
+      </section>
+      <section class="layout_section">
+        <dl>
+          <dt>
+            <mark class="type_mark">Runtime</mark>
+          </dt>
+          <dd class="type_copy">
+            This is a Node.js app running on IBM Bluemix. <a href="https://nodejs.org/en/" class="type_link" target="_blank">Node.js</a> code is JavaScript running on the server side. Node.js has a rich collection of add-on libraries that can be baked into your applications using the <a href="https://npmjs.org/" class="type_link">npm</a> package manager. This application uses the <a href="http://expressjs.com/" class="type_link" target="_blank">Express</a> web framework and the <a href="https://www.npmjs.com/package/simple-service-registry" class="type_link" target="_blank">Simple Service Registry</a> to power this web app.
+          </dd>
+          <dt>
+            <mark class="type_mark">Queues</mark>
+          </dt>
+          <dd class="type_copy">
+            By default this application outputs the events to the Terminal, but support is also available for <a target="_blank" class="type_link" href="https://www.compose.io/articles/get-started-with-redis-on-compose/">Redis by Compose</a>, <a target="_blank" class="type_link" href="https://www.compose.io/articles/getting-started-with-rabbitmq/">RabbitMQ by Compose</a>, and <a target="_blank" class="type_link" href="https://developer.ibm.com/messaging/message-hub/">IBM Message Hub</a>. The <a target="_blank" class="type_link" href="https://github.com/ibm-cds-labs/simple-logging-storage">Simple Logging Storage</a> micro service is available to assist with the downstream collection of data.
+          </dd>
+          <dt>
+            <mark class="type_mark">Code</mark>
+          </dt>
+          <dd class="type_copy">
+            Simple Logging Service is an open-source project published under the Apache-2.0 license. This means that it is free for you to use, copy or modify in any way. Feel free to download the <a href="https://github.com/ibm-cds-labs/simple-logging-service/" target="_blank" class="type_link">code on Github</a> and alter it to suit your own purposes. Contributions to this project are welcome: either raise an <a href="https://github.com/ibm-cds-labs/simple-logging-service/issues" class="type_link" target="_blank">Issue on Github</a> or if you fix or improve something, <a href="https://github.com/ibm-cds-labs/simple-logging-service#fork-destination-box" class="type_link" target="_blank">Fork the code</a>, alter it and send us a pull request. 
+          </dd>
+          <dt>
+            <mark class="type_mark">Service Discovery</mark>
+          </dt>
+          <dd class="type_copy">
+            Simple Logging Service is one of a suite of example micro services that have been developed by the IBM Cloud Data Services team. It is possible to combine some of these services together to create a larger, distributed system using automated service discovery. The Simple Logging Service can be used to extend the <a target="_blank" class="type_link" href="https://github.com/ibm-cds-labs/simple-search-service">Simple Search Service</a> to allow for the logging of searches.
+          </dd>
+        </dl>
+      </section>
+    </script>
+<!-- END template: ingredients -->
+  </body>
+</html>
