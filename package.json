@@ -1,6 +1,6 @@
 {
   "name": "simple-logging-service",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Backend collector of client tracking data - this microservice simply adds data to a queue",
   "main": "server.js",
   "scripts": {
