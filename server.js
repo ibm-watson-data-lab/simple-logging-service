@@ -104,17 +104,11 @@ var port = process.env.VCAP_APP_PORT || 8081;
 var connected = function () {
   console.log("CDS Labs Metrics Collector Microservice started on port %s : %s", port, Date(Date.now()));
 };
-var url = null;
+var url = appEnv.url + "/tracker";
 
-if (process.env.VCAP_APP_HOST) {
-  http.listen(process.env.VCAP_APP_PORT,
-    process.env.VCAP_APP_HOST,
-    connected);
-  url = appEnv.url + '/tracker';
-} else {
-  http.listen(port, connected);
-  url = 'http://localhost:' + port + '/tracker';
-}
+http.listen(appEnv.port, ( appEnv.bind == "localhost" ? null : appEnv.bind ), () => {
+  console.log(`CDS Labs Metrics Collector Microservice listening on ${appEnv.url}`);
+});
 
 // if we detect etcd
 if (process.env.ETCD_URL) {
