@@ -18,7 +18,7 @@
     "body-parser": "^1.11.0",
     "cf-deployment-tracker-client": "^0.x",
     "cfenv": "*",
-    "errorhandler": "~1.3.6",
+    "errorhandler": "~1.5.1",
     "express": "^4.10.6",
     "lodash": "~3.9.3",
     "message-hub-rest": "^1.0.1",
